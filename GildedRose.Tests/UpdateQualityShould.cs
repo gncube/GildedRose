@@ -7,7 +7,7 @@ namespace GildedRose.Tests
         [Fact]
         public void RunWithoutError_GivenEmptyCollection()
         {
-            var statusUpdater = new InventorStatusUpdater();
+            var statusUpdater = new InventoryStatusUpdater();
 
             statusUpdater.UpdateQuality(new List<Item>());
         }

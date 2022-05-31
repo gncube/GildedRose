@@ -1,6 +1,6 @@
 ﻿namespace GildedRose.Console
 {
-    public class InventorStatusUpdater
+    public class InventoryStatusUpdater
     {
         public void UpdateQuality(IList<Item> Items)
         {

@@ -23,7 +23,7 @@
                                               new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
                                           };
 
-            var app = new InventorStatusUpdater();
+            var app = new InventoryStatusUpdater();
 
             app.UpdateQuality(Items);
 
