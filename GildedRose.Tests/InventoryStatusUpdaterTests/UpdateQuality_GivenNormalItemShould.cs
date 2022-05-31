@@ -1,41 +1,40 @@
 using GildedRose.Console;
 
-namespace GildedRose.Tests
+namespace GildedRose.Tests.InventoryStatusUpdaterTests
 {
-    public class UpdateQualityShould_GivenNormalItem
+    public class UpdateQuality_GivenNormalItemShould
     {
+        private readonly InventoryStatusUpdater _statusUpdater;
+
+        public UpdateQuality_GivenNormalItemShould()
+        {
+            _statusUpdater = new InventoryStatusUpdater();
+        }
 
         [Fact]
         public void RunWithoutError()
         {
-            var statusUpdater = new InventoryStatusUpdater();
-
-            statusUpdater.UpdateQuality(new List<Item>());
+            _statusUpdater.UpdateQuality(new List<Item>());
         }
 
         [Fact]
-        public void LowerQuality()
+        public void LowerQualityByOne()
         {
-            var statusUpdater = new InventoryStatusUpdater();
-
-
             var normalItem = new Item { Name = "Normal Normal", Quality = 20, SellIn = 10 };
             var expectedQuality = normalItem.Quality - 1;
             var items = new List<Item> { normalItem };
-            statusUpdater.UpdateQuality(items);
+            _statusUpdater.UpdateQuality(items);
 
             Assert.Equal(expectedQuality, normalItem.Quality);
         }
 
         [Fact]
-        public void LowerSellIn()
+        public void LowerSellInByOne()
         {
-            var statusUpdater = new InventoryStatusUpdater();
-
             var normalItem = new Item { Name = "Normal Normal", Quality = 20, SellIn = 10 };
             var expectedSellIn = normalItem.SellIn - 1;
             var items = new List<Item> { normalItem };
-            statusUpdater.UpdateQuality(items);
+            _statusUpdater.UpdateQuality(items);
 
             Assert.Equal(expectedSellIn, normalItem.SellIn);
         }
@@ -43,13 +42,12 @@ namespace GildedRose.Tests
         [Fact]
         public void FloorQualityAtZero()
         {
-            var statusUpdater = new InventoryStatusUpdater();
             var normalItem = new Item { Name = "Normal Normal", Quality = 1, SellIn = 10 };
             var expectedResult = 0;
             var items = new List<Item> { normalItem };
 
-            statusUpdater.UpdateQuality(items);
-            statusUpdater.UpdateQuality(items);
+            _statusUpdater.UpdateQuality(items);
+            _statusUpdater.UpdateQuality(items);
 
             Assert.Equal(expectedResult, normalItem.Quality);
         }
@@ -57,28 +55,26 @@ namespace GildedRose.Tests
         [Fact]
         public void AllowNegativeSellIn()
         {
-            var statusUpdater = new InventoryStatusUpdater();
             var normalItem = new Item { Name = "Normal Normal", Quality = 50, SellIn = 1 };
             var expectedResult = -1;
             var items = new List<Item> { normalItem };
 
-            statusUpdater.UpdateQuality(items);
-            statusUpdater.UpdateQuality(items);
+            _statusUpdater.UpdateQuality(items);
+            _statusUpdater.UpdateQuality(items);
 
             Assert.Equal(expectedResult, normalItem.SellIn);
         }
 
         [Fact]
-        public void DecreaseQualityTwiceAsFast_AfterSellInReachesZero()
+        public void DecreaseQualityByTwo_AfterSellInReachesZero()
         {
-            var statusUpdater = new InventoryStatusUpdater();
             var normalItem = new Item { Name = "Normal Normal", Quality = 50, SellIn = 1 };
             var expectedResult = 45;
             var items = new List<Item> { normalItem };
 
-            statusUpdater.UpdateQuality(items); // -1
-            statusUpdater.UpdateQuality(items); // -2
-            statusUpdater.UpdateQuality(items); // -2
+            _statusUpdater.UpdateQuality(items); // -1
+            _statusUpdater.UpdateQuality(items); // -2
+            _statusUpdater.UpdateQuality(items); // -2
 
             Assert.Equal(expectedResult, normalItem.Quality);
         }
