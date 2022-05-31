@@ -23,7 +23,7 @@
                                               new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
                                           };
 
-            var app = new NoNameYet();
+            var app = new InventorStatusUpdater();
 
             app.UpdateQuality(Items);
 
@@ -35,7 +35,7 @@
 
     }
 
-    public class NoNameYet
+    public class InventorStatusUpdater
     {
         public void UpdateQuality(IList<Item> Items)
         {

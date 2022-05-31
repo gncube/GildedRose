@@ -7,9 +7,9 @@ namespace GildedRose.Tests
         [Fact]
         public void RunWithoutError_GivenEmptyCollection()
         {
-            var noNameYet = new NoNameYet();
+            var statusUpdater = new InventorStatusUpdater();
 
-            noNameYet.UpdateQuality(new List<Item>());
+            statusUpdater.UpdateQuality(new List<Item>());
         }
     }
 }
